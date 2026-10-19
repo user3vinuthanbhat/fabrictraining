@@ -2,6 +2,112 @@
   "properties": {
     "activities": [
       {
+        "name": "Tester",
+        "type": "Copy",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "typeProperties": {
+          "source": {
+            "type": "DelimitedTextSource",
+            "storeSettings": {
+              "type": "LakehouseReadSettings",
+              "recursive": false,
+              "enablePartitionDiscovery": false
+            },
+            "formatSettings": {
+              "type": "DelimitedTextReadSettings"
+            }
+          },
+          "sink": {
+            "type": "DelimitedTextSink",
+            "storeSettings": {
+              "type": "LakehouseWriteSettings",
+              "copyBehavior": "FlattenHierarchy"
+            },
+            "formatSettings": {
+              "type": "DelimitedTextWriteSettings",
+              "quoteAllText": false,
+              "fileExtension": ".csv"
+            }
+          },
+          "enableStaging": false,
+          "translator": {
+            "type": "TabularTranslator",
+            "typeConversion": true,
+            "typeConversionSettings": {
+              "allowDataTruncation": true,
+              "treatBooleanAsNumber": false
+            }
+          }
+        },
+        "inputs": [
+          {
+            "referenceName": "lh_sales_medallion",
+            "type": "DatasetReference",
+            "connectionSettings": {
+              "type": "Lakehouse",
+              "typeProperties": {
+                "workspaceId": "6557fd20-812b-49e6-abf3-5e8f4e63518c",
+                "artifactId": "431d5f2d-3204-44ee-bcd6-ff401ea6fb46",
+                "rootFolder": "Files"
+              }
+            },
+            "datasetSettings": {
+              "annotations": [],
+              "type": "DelimitedText",
+              "schema": [],
+              "typeProperties": {
+                "location": {
+                  "type": "LakehouseLocation",
+                  "folderPath": "incoming",
+                  "fileName": "sales_orders.csv"
+                },
+                "columnDelimiter": ",",
+                "escapeChar": "\\",
+                "firstRowAsHeader": true,
+                "quoteChar": "\""
+              }
+            }
+          }
+        ],
+        "outputs": [
+          {
+            "referenceName": "lh_sales_medallion",
+            "type": "DatasetReference",
+            "connectionSettings": {
+              "type": "Lakehouse",
+              "typeProperties": {
+                "workspaceId": "6557fd20-812b-49e6-abf3-5e8f4e63518c",
+                "artifactId": "431d5f2d-3204-44ee-bcd6-ff401ea6fb46",
+                "rootFolder": "Files"
+              }
+            },
+            "datasetSettings": {
+              "annotations": [],
+              "type": "DelimitedText",
+              "schema": [],
+              "typeProperties": {
+                "location": {
+                  "type": "LakehouseLocation",
+                  "folderPath": "bronze",
+                  "fileName": "sales_orders.csv"
+                },
+                "columnDelimiter": ",",
+                "escapeChar": "\\",
+                "firstRowAsHeader": true,
+                "quoteChar": "\""
+              }
+            }
+          }
+        ]
+      },
+      {
         "type": "SqlServerStoredProcedure",
         "typeProperties": {
           "database": "SalesWH",
@@ -18,7 +124,14 @@
           "secureOutput": false
         },
         "name": "LoadBronzeToSilver",
-        "dependsOn": []
+        "dependsOn": [
+          {
+            "activity": "Tester",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
       }
     ]
   }
