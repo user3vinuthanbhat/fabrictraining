@@ -1,0 +1,25 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "type": "SqlServerStoredProcedure",
+        "typeProperties": {
+          "database": "SalesWH",
+          "storedProcedureName": "dbo.usp_LoadBronzeToSilver1"
+        },
+        "externalReferences": {
+          "connection": "50c1504e-2cb0-4d45-8a69-0a60cd81b099"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "LoadBronzeToSilver",
+        "dependsOn": []
+      }
+    ]
+  }
+}
