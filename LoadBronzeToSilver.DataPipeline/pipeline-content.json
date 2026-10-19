@@ -27,12 +27,16 @@
               "annotations": [],
               "type": "DelimitedText",
               "schema": [],
-              "connectionSettings": {
-                "type": "Lakehouse",
-                "typeProperties": {
-                  "workspaceId": "6557fd20-812b-49e6-abf3-5e8f4e63518c",
-                  "artifactId": "431d5f2d-3204-44ee-bcd6-ff401ea6fb46",
-                  "rootFolder": "Files"
+              "linkedService": {
+                "name": "Sales",
+                "properties": {
+                  "annotations": [],
+                  "type": "Lakehouse",
+                  "typeProperties": {
+                    "workspaceId": "6557fd20-812b-49e6-abf3-5e8f4e63518c",
+                    "artifactId": "431d5f2d-3204-44ee-bcd6-ff401ea6fb46",
+                    "rootFolder": "Files"
+                  }
                 }
               },
               "typeProperties": {
@@ -62,12 +66,16 @@
               "annotations": [],
               "type": "DelimitedText",
               "schema": [],
-              "connectionSettings": {
-                "type": "Lakehouse",
-                "typeProperties": {
-                  "workspaceId": "6557fd20-812b-49e6-abf3-5e8f4e63518c",
-                  "artifactId": "431d5f2d-3204-44ee-bcd6-ff401ea6fb46",
-                  "rootFolder": "Files"
+              "linkedService": {
+                "name": "Sales",
+                "properties": {
+                  "annotations": [],
+                  "type": "Lakehouse",
+                  "typeProperties": {
+                    "workspaceId": "6557fd20-812b-49e6-abf3-5e8f4e63518c",
+                    "artifactId": "431d5f2d-3204-44ee-bcd6-ff401ea6fb46",
+                    "rootFolder": "Files"
+                  }
                 }
               },
               "typeProperties": {
