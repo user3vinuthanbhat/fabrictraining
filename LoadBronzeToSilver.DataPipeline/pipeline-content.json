@@ -22,6 +22,29 @@
             },
             "formatSettings": {
               "type": "DelimitedTextReadSettings"
+            },
+            "datasetSettings": {
+              "annotations": [],
+              "type": "DelimitedText",
+              "schema": [],
+              "connectionSettings": {
+                "type": "Lakehouse",
+                "typeProperties": {
+                  "workspaceId": "6557fd20-812b-49e6-abf3-5e8f4e63518c",
+                  "artifactId": "431d5f2d-3204-44ee-bcd6-ff401ea6fb46",
+                  "rootFolder": "Files"
+                }
+              },
+              "typeProperties": {
+                "location": {
+                  "type": "LakehouseLocation",
+                  "fileName": "bronze_sales.csv"
+                },
+                "columnDelimiter": ",",
+                "escapeChar": "\\",
+                "firstRowAsHeader": true,
+                "quoteChar": "\""
+              }
             }
           },
           "sink": {
@@ -34,64 +57,19 @@
               "type": "DelimitedTextWriteSettings",
               "quoteAllText": false,
               "fileExtension": ".csv"
-            }
-          },
-          "enableStaging": false,
-          "translator": {
-            "type": "TabularTranslator",
-            "typeConversion": true,
-            "typeConversionSettings": {
-              "allowDataTruncation": true,
-              "treatBooleanAsNumber": false
-            }
-          }
-        },
-        "inputs": [
-          {
-            "referenceName": "lh_sales_medallion",
-            "type": "DatasetReference",
-            "connectionSettings": {
-              "type": "Lakehouse",
-              "typeProperties": {
-                "workspaceId": "6557fd20-812b-49e6-abf3-5e8f4e63518c",
-                "artifactId": "431d5f2d-3204-44ee-bcd6-ff401ea6fb46",
-                "rootFolder": "Files"
-              }
             },
             "datasetSettings": {
               "annotations": [],
               "type": "DelimitedText",
               "schema": [],
-              "typeProperties": {
-                "location": {
-                  "type": "LakehouseLocation",
-                  "folderPath": "incoming",
-                  "fileName": "sales_orders.csv"
-                },
-                "columnDelimiter": ",",
-                "escapeChar": "\\",
-                "firstRowAsHeader": true,
-                "quoteChar": "\""
-              }
-            }
-          }
-        ],
-        "outputs": [
-          {
-            "referenceName": "lh_sales_medallion",
-            "type": "DatasetReference",
-            "connectionSettings": {
-              "type": "Lakehouse",
-              "typeProperties": {
-                "workspaceId": "6557fd20-812b-49e6-abf3-5e8f4e63518c",
-                "artifactId": "431d5f2d-3204-44ee-bcd6-ff401ea6fb46",
-                "rootFolder": "Files"
-              }
-            },
-            "datasetSettings": {
-              "annotations": [],
-              "type": "DelimitedText",
-              "schema": [],
+              "connectionSettings": {
+                "type": "Lakehouse",
+                "typeProperties": {
+                  "workspaceId": "6557fd20-812b-49e6-abf3-5e8f4e63518c",
+                  "artifactId": "431d5f2d-3204-44ee-bcd6-ff401ea6fb46",
+                  "rootFolder": "Files"
+                }
+              },
               "typeProperties": {
                 "location": {
                   "type": "LakehouseLocation",
@@ -104,8 +82,17 @@
                 "quoteChar": "\""
               }
             }
+          },
+          "enableStaging": false,
+          "translator": {
+            "type": "TabularTranslator",
+            "typeConversion": true,
+            "typeConversionSettings": {
+              "allowDataTruncation": true,
+              "treatBooleanAsNumber": false
+            }
           }
-        ]
+        }
       },
       {
         "type": "SqlServerStoredProcedure",
