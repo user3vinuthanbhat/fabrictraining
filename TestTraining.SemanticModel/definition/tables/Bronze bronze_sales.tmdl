@@ -1,0 +1,70 @@
+table 'Bronze bronze_sales'
+	lineageTag: 37ed8067-77ef-4c8b-824a-303cb3a0d0a4
+
+	column order_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 0d45f319-5431-4b15-b522-87a94cf6d171
+		summarizeBy: sum
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: d18f1025-8b36-4965-ad55-ddfc88329dd5
+		summarizeBy: none
+		sourceColumn: order_date
+
+		variation Variation
+			isDefault
+			relationship: 456ef02c-acb5-45f1-a8b6-3389ac597e50
+			defaultHierarchy: LocalDateTable_b0e6f6c9-997f-4633-bbd7-658082c0d086.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column customer
+		dataType: string
+		lineageTag: 35a45e94-80de-4678-ba47-843ce7c2dcd5
+		summarizeBy: none
+		sourceColumn: customer
+
+		annotation SummarizationSetBy = Automatic
+
+	column amount
+		dataType: int64
+		formatString: 0
+		lineageTag: f1f33d09-a489-4a78-8bd1-6f51fa4e6b74
+		summarizeBy: sum
+		sourceColumn: amount
+
+		annotation SummarizationSetBy = Automatic
+
+	column CreatedDateTS
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 394dc53b-3680-4900-9ed8-5210aea4d648
+		summarizeBy: none
+		sourceColumn: CreatedDateTS
+
+		variation Variation
+			isDefault
+			relationship: c8447bec-e6a6-4c3a-afec-5aed4d4f3808
+			defaultHierarchy: LocalDateTable_e2063fe5-a88c-4684-9ed2-514a71a1ed8a.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Bronze bronze_sales' = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("obgmo7yv7fjufgzjbdlsigs6oa-ed6vozjlqhtetk7tl2hu4y2rrq.datawarehouse.fabric.microsoft.com", "Sales"),
+				    Bronze_bronze_sales = Source{[Schema="Bronze",Item="bronze_sales"]}[Data]
+				in
+				    Bronze_bronze_sales
+
+	annotation PBI_ResultType = Table
+

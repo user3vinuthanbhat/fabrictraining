@@ -1,0 +1,10 @@
+relationship 456ef02c-acb5-45f1-a8b6-3389ac597e50
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Bronze bronze_sales'.order_date
+	toColumn: LocalDateTable_b0e6f6c9-997f-4633-bbd7-658082c0d086.Date
+
+relationship c8447bec-e6a6-4c3a-afec-5aed4d4f3808
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Bronze bronze_sales'.CreatedDateTS
+	toColumn: LocalDateTable_e2063fe5-a88c-4684-9ed2-514a71a1ed8a.Date
+

@@ -1,0 +1,20 @@
+model Model
+	culture: en-IN
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-IN
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["Bronze bronze_sales"]
+
+ref table 'Bronze bronze_sales'
+ref table DateTableTemplate_136999c7-fa20-42d4-b3a2-2fc40ae0be4f
+ref table LocalDateTable_b0e6f6c9-997f-4633-bbd7-658082c0d086
+ref table LocalDateTable_e2063fe5-a88c-4684-9ed2-514a71a1ed8a
+
+ref cultureInfo en-IN
+

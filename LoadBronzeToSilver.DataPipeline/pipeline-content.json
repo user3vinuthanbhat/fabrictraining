@@ -2,96 +2,86 @@
   "properties": {
     "activities": [
       {
-        "name": "Tester",
         "type": "Copy",
-        "dependsOn": [],
-        "policy": {
-          "timeout": "0.12:00:00",
-          "retry": 0,
-          "retryIntervalInSeconds": 30,
-          "secureInput": false,
-          "secureOutput": false
-        },
         "typeProperties": {
           "source": {
             "type": "DelimitedTextSource",
-            "storeSettings": {
-              "type": "LakehouseReadSettings",
-              "recursive": false,
-              "enablePartitionDiscovery": false
-            },
             "formatSettings": {
               "type": "DelimitedTextReadSettings"
             },
+            "storeSettings": {
+              "type": "AzureBlobStorageReadSettings",
+              "recursive": false,
+              "enablePartitionDiscovery": false
+            },
             "datasetSettings": {
-              "annotations": [],
               "type": "DelimitedText",
-              "schema": [],
-              "linkedService": {
-                "name": "Sales",
-                "properties": {
-                  "annotations": [],
-                  "type": "Lakehouse",
-                  "typeProperties": {
-                    "workspaceId": "6557fd20-812b-49e6-abf3-5e8f4e63518c",
-                    "artifactId": "431d5f2d-3204-44ee-bcd6-ff401ea6fb46",
-                    "rootFolder": "Files"
-                  }
-                }
-              },
               "typeProperties": {
                 "location": {
                   "type": "LakehouseLocation",
                   "fileName": "bronze_sales.csv"
                 },
                 "columnDelimiter": ",",
+                "quoteChar": "\"",
                 "escapeChar": "\\",
-                "firstRowAsHeader": true,
-                "quoteChar": "\""
-              }
+                "firstRowAsHeader": true
+              },
+              "schema": [],
+              "linkedService": {
+                "name": "Sales",
+                "properties": {
+                  "type": "Lakehouse",
+                  "typeProperties": {
+                    "artifactId": "1ea6fb46-ff40-bcd6-44ee-3204431d5f2d",
+                    "workspaceId": "00000000-0000-0000-0000-000000000000",
+                    "rootFolder": "Files"
+                  },
+                  "annotations": []
+                }
+              },
+              "annotations": []
             }
           },
           "sink": {
             "type": "DelimitedTextSink",
-            "storeSettings": {
-              "type": "LakehouseWriteSettings",
-              "copyBehavior": "FlattenHierarchy"
-            },
             "formatSettings": {
               "type": "DelimitedTextWriteSettings",
               "quoteAllText": false,
               "fileExtension": ".csv"
             },
+            "storeSettings": {
+              "type": "AzureBlobStorageWriteSettings",
+              "copyBehavior": "FlattenHierarchy"
+            },
             "datasetSettings": {
-              "annotations": [],
               "type": "DelimitedText",
+              "typeProperties": {
+                "location": {
+                  "type": "LakehouseLocation",
+                  "folderPath": "testbronze",
+                  "fileName": "sales_orders.csv"
+                },
+                "columnDelimiter": ",",
+                "quoteChar": "\"",
+                "escapeChar": "\\",
+                "firstRowAsHeader": true
+              },
               "schema": [],
               "linkedService": {
                 "name": "Sales",
                 "properties": {
-                  "annotations": [],
                   "type": "Lakehouse",
                   "typeProperties": {
-                    "workspaceId": "6557fd20-812b-49e6-abf3-5e8f4e63518c",
-                    "artifactId": "431d5f2d-3204-44ee-bcd6-ff401ea6fb46",
+                    "artifactId": "1ea6fb46-ff40-bcd6-44ee-3204431d5f2d",
+                    "workspaceId": "00000000-0000-0000-0000-000000000000",
                     "rootFolder": "Files"
-                  }
+                  },
+                  "annotations": []
                 }
               },
-              "typeProperties": {
-                "location": {
-                  "type": "LakehouseLocation",
-                  "folderPath": "bronze",
-                  "fileName": "sales_orders.csv"
-                },
-                "columnDelimiter": ",",
-                "escapeChar": "\\",
-                "firstRowAsHeader": true,
-                "quoteChar": "\""
-              }
+              "annotations": []
             }
           },
-          "enableStaging": false,
           "translator": {
             "type": "TabularTranslator",
             "typeConversion": true,
@@ -99,14 +89,24 @@
               "allowDataTruncation": true,
               "treatBooleanAsNumber": false
             }
-          }
-        }
+          },
+          "enableStaging": false
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Tester",
+        "dependsOn": []
       },
       {
         "type": "SqlServerStoredProcedure",
         "typeProperties": {
           "database": "SalesWH",
-          "storedProcedureName": "dbo.usp_LoadBronzeToSilver1"
+          "storedProcedureName": "dbo.usp_LoadBronzeToSilver"
         },
         "externalReferences": {
           "connection": "50c1504e-2cb0-4d45-8a69-0a60cd81b099"
